@@ -51,7 +51,14 @@ function search() {
         alert('El alcance mínimo de metros cuadrados no puede ser mayor que el alcance máximo')
         return location.reload()
     }
-    
+    // filter data
+    const filterByRoomsAndSquareMeters = properties.filter(
+        property => property.rooms === numberOfRooms && 
+        (property.m >= minSquareMeters && property.m <= maxSquareMeters))
+    console.log(filterByRoomsAndSquareMeters)
+    if (filterByRoomsAndSquareMeters.length === 0) {
+        alert('No se han encontrado resultados')
+    }
 }
 
 //variables 
