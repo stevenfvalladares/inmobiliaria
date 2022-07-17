@@ -21,12 +21,18 @@ function cardsTemplate(card) {
         </div>`
 }
 
+function showTotalCards(element) {
+    let total = element.length
+    document.getElementById('total').innerHTML = `${total}`
+}
+
 function showCards(cardContainer) {
     let html = ''
     for (const property of properties) {
         html += cardsTemplate(property)
     }
     cardContainer.innerHTML = html
+    showTotalCards(properties)
 }
 
 function search() {
@@ -73,12 +79,15 @@ function search() {
     // display filtered cards in the DOM
     const cardContainer = document.querySelector('.properties')
     cardContainer.innerHTML = html
+    // show total cards filtered
+    showTotalCards(filterByRoomsAndSquareMeters)
 }
+
+
 
 /*
  * wait for the HTML to load in the DOM
  */
-
 document.addEventListener('DOMContentLoaded', (event) => {
     // get elements HTML
     const cardContainer = document.querySelector('.properties')
