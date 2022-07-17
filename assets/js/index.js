@@ -51,19 +51,39 @@ function search() {
         alert('El alcance mínimo de metros cuadrados no puede ser mayor que el alcance máximo')
         return location.reload()
     }
-    // filter data
+    // filter 
+    let html = ''
+    let filteredProperties = 0
     const filterByRoomsAndSquareMeters = properties.filter(
         property => property.rooms === numberOfRooms && 
-        (property.m >= minSquareMeters && property.m <= maxSquareMeters))
-    console.log(filterByRoomsAndSquareMeters)
+        (property.m >= minSquareMeters && property.m <= maxSquareMeters)
+    )
+    // if you don't get results
     if (filterByRoomsAndSquareMeters.length === 0) {
         alert('No se han encontrado resultados')
+        return location.reload()
+    } else {
+        // get filtered objects
+        filteredProperties = filterByRoomsAndSquareMeters.map(function(element) {
+            html += cardsTemplate(element)  
+        })
+        // testing 
+        console.log(filterByRoomsAndSquareMeters)
     }
+    // display filtered cards in the DOM
+    const cardContainer = document.querySelector('.properties')
+    cardContainer.innerHTML = html
 }
 
-//variables 
-const cardContainer = document.querySelector('.properties') 
-showCards(cardContainer)
+/*
+ * wait for the HTML to load in the DOM
+ */
 
-const btn = document.getElementById('btn')
-btn.addEventListener('click', search)
+document.addEventListener('DOMContentLoaded', (event) => {
+    // get elements HTML
+    const cardContainer = document.querySelector('.properties')
+    const btn = document.getElementById('btn') 
+    // execute event
+    btn.addEventListener('click', search)
+    showCards(cardContainer)
+})
